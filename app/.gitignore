@@ -1,0 +1,5 @@
+/build
+# 忽略 GGUF 模型文件
+*.gguf
+*.bin
+*.tflite

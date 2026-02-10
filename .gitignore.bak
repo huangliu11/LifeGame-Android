@@ -1,0 +1,27 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# Room 数据库架构
+/app/schemas/
+
+# AI 模型文件（太大，不要提交）
+*.gguf
+*.bin
+*.tflite
+*.model
+
+# 临时文件
+*.tmp
+*.temp
