@@ -16,7 +16,7 @@ class LlamaInference {
         return nativeHandle != 0L
     }
 
-    fun generate(prompt: String, maxTokens: Int = 30): String {
+    fun generate(prompt: String, maxTokens: Int = 200): String {
         return try {
             Log.d(TAG, "=== LlamaInference.generate START ===")
             Log.d(TAG, "Prompt length: ${prompt.length}")
@@ -39,7 +39,7 @@ class LlamaInference {
 
             Log.d(TAG, "Native call duration: ${duration}ms")
             Log.d(TAG, "Result length: ${result.length}")
-            Log.d(TAG, "Result preview: ${result.take(100)}...")
+            Log.d(TAG, "Result preview: $result")
             Log.d(TAG, "=== LlamaInference.generate END ===")
 
             result

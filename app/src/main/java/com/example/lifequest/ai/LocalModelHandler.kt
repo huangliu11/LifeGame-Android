@@ -116,7 +116,7 @@ class LocalModelHandler(private val context: Context) {
             }
 
             Log.d(TAG, "Full prompt length: ${fullPrompt.length}")
-            Log.d(TAG, "Full prompt preview: ${fullPrompt.take(200)}...")
+            Log.d(TAG, "Full prompt preview: $fullPrompt")
 
             val response = if (useMockMode) {
                 Log.d(TAG, "Using MOCK mode")
@@ -140,7 +140,7 @@ class LocalModelHandler(private val context: Context) {
                 }
 
                 Log.d(TAG, "Full prompt length: ${fullPrompt.length}")
-                Log.d(TAG, "Full prompt preview: ${fullPrompt.take(200)}...")
+                Log.d(TAG, "Full prompt preview: $fullPrompt")
 
                 try {
                     Log.d(TAG, "Calling llamaInference.generate()...")
@@ -170,7 +170,7 @@ class LocalModelHandler(private val context: Context) {
 
             Log.d(TAG, "Total generation time: ${totalDuration}ms (${totalDuration / 1000.0}s)")
             Log.d(TAG, "Response length: ${response.length}")
-            Log.d(TAG, "Response preview: ${response.take(100)}...")
+            Log.d(TAG, "Response preview: $response")
             Log.d(TAG, "Tokens per second: ${if (totalDuration > 0) maxTokens * 1000.0 / totalDuration else 0}")
             Log.d(TAG, "=== LocalModelHandler.generate END ===")
 

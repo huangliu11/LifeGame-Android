@@ -32,7 +32,7 @@ class TaskParser(private val modelHandler: LocalModelHandler) {
     /**
      * 生成 AI 回复
      */
-    suspend fun generateResponse(message: String, maxTokens: Int = 100): String? {
+    suspend fun generateResponse(message: String, maxTokens: Int = 200): String? {
         return try {
             if (!modelHandler.isReady()) {
                 Log.e(TAG, "Model not ready")
@@ -174,7 +174,7 @@ class TaskParser(private val modelHandler: LocalModelHandler) {
             // 移除可能的前缀
             val prefixes = listOf(
                 "输出：", "输出:", "标题：", "标题:",
-                "任务标题：", "任务标题:", "任务：", "任务:"
+                "任务标题：", "任务标题:", "任务：", "任务:", ":"
             )
             for (prefix in prefixes) {
                 if (title.startsWith(prefix)) {

@@ -291,11 +291,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                             // 生成确认消息
                             val confirmPrompt = """用户创建了任务：${taskInfo.title}
-请用20字内确认并鼓励。""".trimIndent()
+请用50字内确认并鼓励。""".trimIndent()
 
-                            val response = withTimeoutOrNull(15000) {
-                                taskMessageParser?.generateResponse(confirmPrompt, maxTokens = 50)
-                            }
+//                            val response = withTimeoutOrNull(15000) {
+//                                taskMessageParser?.generateResponse(confirmPrompt, maxTokens = 150)
+//                            }
+
+                            val response = taskMessageParser?.generateResponse(confirmPrompt, maxTokens = 150)
 
                             withContext(Dispatchers.Main) {
                                 addAssistantMessage(

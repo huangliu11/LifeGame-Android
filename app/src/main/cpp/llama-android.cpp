@@ -174,18 +174,29 @@ Java_com_example_lifequest_ai_LlamaInference_nativeGenerate(
     }
     LOGI("✅ model OK: %p", wrapper->model);
     // 3. 检查 ctx
-    LOGI("[3/8] Checking context...");
-    if (!wrapper->ctx) {
-        LOGE("❌ wrapper->ctx is NULL!");
-        return env->NewStringUTF("");
-    }
-    LOGI("✅ ctx OK: %p", wrapper->ctx);
+    // ⭐ 重建 context（清空 KV cache）
+    LOGI("🔄 Recreating context...");
 
-    // =========================================================================
-    // ⭐ 新增代码：清空 KV Cache
-    // =========================================================================
-//    LOGI("🧹 Clearing KV cache to prevent context pollution...");
-//    llama_kv_cache_clear(wrapper->ctx);
+    if (wrapper->ctx) {
+        llama_free(wrapper->ctx);
+        wrapper->ctx = nullptr;
+        LOGI("✅ Old context freed");
+    }
+
+    llama_context_params ctx_params = llama_context_default_params();
+    ctx_params.n_ctx = 2048;
+    ctx_params.n_batch = 512;
+    ctx_params.n_threads = 4;
+    ctx_params.n_threads_batch = 4;
+
+    wrapper->ctx = llama_new_context_with_model(wrapper->model, ctx_params);
+    if (!wrapper->ctx) {
+        LOGE("❌ Failed to recreate context");
+        return env->NewStringUTF("上下文重建失败");
+    }
+
+    LOGI("✅ Context recreated: n_ctx=%d, n_batch=%d",
+         llama_n_ctx(wrapper->ctx), llama_n_batch(wrapper->ctx));
 
     // 4. 获取 prompt
     LOGI("[4/8] Getting prompt...");
